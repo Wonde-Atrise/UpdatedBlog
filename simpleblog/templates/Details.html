@@ -1,0 +1,92 @@
+
+{% extends 'mains.html' %}
+{% block content%}
+
+<style>
+footer{
+  margin-top:30px;
+  font:20px TimesNewRomen;
+}
+.btnlik{
+  background-color:blue;
+  font-family:TimesNewRomen;
+}
+</style>
+{%if details%}
+
+<form method="POST" action="#"  > 
+    {% csrf_token %}
+<div class="card  col-8 text-center mt-2 ">
+    
+    <div class="card-body">
+    
+      <h5 class="card-title" style="font-family: emoji; font-size:30px"><small>Title:</small>{{details.title}}</h5>
+     <p class="card-text" style="color:gray; font-size:20px;font-family:serif"> <small style="font:20px red font-type:">Description: </small>{{details.description}}</p>
+   {% if user.username == details.User_ID.username %}
+     <a class="btn btn-primary"  name="update" href="{%  url  'update_blog' details.id%} ">Update</a>
+    <a class="btn btn-danger"  name="delete" href="{% url 'delete_blog' details.id%}">Delete</a>
+{%endif%}
+</form>
+<a class="btn btn-secondary"  name="back" href="{% url 'home'%}">Back</a>
+
+<form method="POST" action="{% url 'blog_like' details.id %}">
+  {% csrf_token %}
+<button type="submit"  name="details.id"  value="{{details.id}}" class="btn btn-secondary btnlik" style="width:7%;margin-left:-80%;"><i class="fa-regular fa-thumbs-up "></i></i></button> {{likes}} Likes
+</form>
+    </div>
+    <script    type="text/javascript">
+      const valv =3;
+      const btnse = document.querySelector('.btnlik');
+      btnse.addEventListener('click',()=>{
+        btnse.ClassList.add('btnlik');
+       
+      })
+    </script>
+
+  </div>
+ 
+<br>
+
+{% else %}
+{% endif%}
+<h3  style>Comment here..</h3>
+
+
+
+           
+            <ul class="list-group"  style="width:100%;text-center;margin-left:1%;margin-top:5px;">
+              {% for comment in blog %}
+             <li class="list-group-item" style="border-outline:3px;
+             margin:2px;font-family:TimesNewRomen;
+             font-size:20px;"> <a href="{% url 'user-p' comment.user %}" style="display:block">
+               @{{comment.user.username}}  </a> {{comment.body}}
+               
+                 <small>{{comment.messageCreated|timesince}} ago<small>
+                  {% if request.user == comment.user %}
+                <a href="{% url 'delete-message' comment.id %}" class="  btn btn-danger h-0 w-10 right:0%">
+                 Delete</a>
+              
+              </li>
+              {% endif %}
+
+              {% endfor%}
+              </ul> 
+           
+
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input name="body" placeholder="Write your message here..." style="font-size:20px;width:50%;border-radius:5px;position:fixed ;font-family:serif ;bottom:2%;left:15%;padding:10px;;
+                 ;"  />
+              </form>
+              
+
+                
+                    
+                    
+                 
+             
+           
+        
+            
+      
+    {% endblock %}

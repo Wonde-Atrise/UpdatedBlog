@@ -1,0 +1,25 @@
+{% extends 'mains.html' %}
+
+{% block content%}
+
+<form method="POST"  action="#">
+    {% csrf_token %}
+    {{form}}
+    {{username}}
+    {{request.user}}
+    
+  {% if request.user == username %}
+     <button class="btn btn-primary"  name="update" >Update</button>
+     <a class="btn btn-secondary"  name="Cancle" href="{% url 'home' %}" >Back</a>
+ {% else%}
+ <a class="btn btn-secondary"  name="Cancle" href="{% url 'home' %}" >Back</a>
+{% endif%}
+     
+ 
+  
+
+
+
+</form>
+   {{auth}}
+{% endblock %}

@@ -1,0 +1,38 @@
+
+<style>
+  .navbar{
+    background-color:red;
+  }
+</style>
+<nav class="navbar navbar-expand-sm bg-body-secondary" >
+    <div class="container mt-20" >
+      <a class="navbar-brand" href="{% url 'home'%}" style="font-family:Helvetica" ><small style="font-size:40px ; text-color: red;">B</small>log APP</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="Lo_regi" style="font-family:serif">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
+            {% if request.user.is_authenticated %}
+            <small style="display:block">Hi {{request.user }}<small>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'logout'%}">Logout</a>
+            
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'login'%}">Login</a>
+            </li>
+            <li class="nav-item"> 
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+           
+         
+          </ul>
+         
+        </div>
+        {%endif%}
+  
+        <div>
+          </div>
+  </nav>
